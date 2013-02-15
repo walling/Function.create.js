@@ -1,7 +1,7 @@
 Polyfill for Function.create
 ============================
 
-This project provides a polyfill for the [currently discussed `Function.create`] in ECMAScript. This function allows you to create named functions easily.
+This project provides a polyfill for the [currently discussed `Function.create`](http://wiki.ecmascript.org/doku.php?id=strawman:name_property_of_functions) in ECMAScript. This function allows you to create named functions easily.
 
 
 Install
@@ -9,7 +9,7 @@ Install
 
 Installing is as easy as:
 
-```bash
+```
 npm install function.create
 ```
 

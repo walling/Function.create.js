@@ -1,7 +1,7 @@
 {
 	"name" : "function.create",
 	"description" : "Polyfill for ECMAScript Function.create.",
-	"version" : "0.1.2",
+	"version" : "0.1.3",
 	"author" : {
 		"name" : "Bjarke Walling",
 		"email" : "bwp@bwp.dk"
