@@ -1,0 +1,22 @@
+{
+	"name" : "function.create",
+	"description" : "Polyfill for ECMAScript Function.create.",
+	"version" : "0.1.2",
+	"author" : {
+		"name" : "Bjarke Walling",
+		"email" : "bwp@bwp.dk"
+	},
+	"repository" : {
+		"type" : "git",
+		"url" : "https://github.com/walling/Function.create.js.git"
+	},
+	"scripts" : {
+		"test" : "node ./tests"
+	},
+	"main" : "./Function.create",
+	"license" : "MIT",
+	"engines" : {
+    "node" : ">=0.6",
+    "npm" : ">=1"
+  }
+}
