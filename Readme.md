@@ -16,9 +16,9 @@ Getting Started
 
 Download:
 
- *  [Development Version](https://raw.github.com/walling/Function.create.js/master/Function.create.js) (15.3 KiB, including comments)
- *  [Production Version](https://raw.github.com/walling/Function.create.js/master/Function.create.min.js) (3.7 KiB, minified and gzipped)
- *  [Production Version without Unicode support](https://raw.github.com/walling/Function.create.js/master/Function.create.no-unicode.min.js) (0.9 KiB, minified and gzipped)
+ *  [Development Version](https://raw.github.com/walling/Function.create.js/master/Function.create.js) (16kb, Uncompressed with Plentiful Comments)
+ *  [Production Version](https://raw.github.com/walling/Function.create.js/master/Function.create.min.js) (4kb, Minified and Gzipped)
+ *  [Production Version without Unicode support](https://raw.github.com/walling/Function.create.js/master/Function.create.no-unicode.min.js) (1kb, Minified and Gzipped)
 
 Installing:
 
