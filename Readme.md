@@ -14,13 +14,17 @@ It is similar to the [sketched `Function.create`](http://wiki.ecmascript.org/dok
 Install
 -------
 
-Installing is as easy as:
+Download:
+
+ *  [Development Version](https://raw.github.com/walling/Function.create.js/master/Function.create.js) (15.3 KiB, including comments)
+ *  [Production Version](https://raw.github.com/walling/Function.create.js/master/Function.create.min.js) (3.7 KiB, minified and gzipped)
+ *  [Production Version without Unicode support](https://raw.github.com/walling/Function.create.js/master/Function.create.no-unicode.min.js) (0.9 KiB, minified and gzipped)
+
+Installing:
 
 ```
 npm install function.create
 ```
-
-... or just download the `Function.create.js` file, which includes comments.
 
 Loading it in Node.JS:
 
@@ -49,7 +53,7 @@ Example 1 (creating unnamed function):
 
 ```javascript
 var anon = Function.create(null, function(str) {
-	console.log('anon called:', str);
+  console.log('anon called:', str);
 });
 
 anon('Hello, anon!');
@@ -59,7 +63,7 @@ Example 2 (creating simple named function):
 
 ```javascript
 var simple = Function.create('simple', function(str) {
-	console.log('simple called:', str);
+  console.log('simple called:', str);
 });
 
 console.log(simple.name); // "simple"
@@ -70,10 +74,10 @@ Example 3 (creating simple named constructor):
 
 ```javascript
 var Constr = Function.create('Constr', function(n) {
-	this.n = n;
+  this.n = n;
 });
 Constr.prototype.say = function(text) {
-	console.log('say: ' + text + ', ' + this.n + '!');
+  console.log('say: ' + text + ', ' + this.n + '!');
 };
 
 console.log(Constr.name); // "Constr"
@@ -85,9 +89,9 @@ Example 4 (creating named function and constructor):
 
 ```javascript
 var Person = Function.create('Person', function(name) {
-	return new Person(name);
+  return new Person(name);
 }, function(name) {
-	this.name = name;
+  this.name = name;
 });
 
 console.log(Person.name); // "Person"
@@ -107,23 +111,23 @@ Example 6 (named classes):
 
 ```javascript
 function createClass(name, properties) {
-	var Class = Function.create(name, function() {
-		if (typeof(this.initialize) === 'function') {
-			this.initialize.apply(this, arguments);
-		}
-	});
-	Class.prototype = properties;
-	Class.prototype.constructor = Class;
-	return Class;
+  var Class = Function.create(name, function() {
+    if (typeof(this.initialize) === 'function') {
+      this.initialize.apply(this, arguments);
+    }
+  });
+  Class.prototype = properties;
+  Class.prototype.constructor = Class;
+  return Class;
 }
 
 var Person = createClass('Person', {
-	initialize: function(name) {
-		this.name = name;
-	},
-	getName: function() {
-		return this.name;
-	}
+  initialize: function(name) {
+    this.name = name;
+  },
+  getName: function() {
+    return this.name;
+  }
 });
 var andy = new Person('Andy');
 console.log(andy instanceof Person); // true
@@ -134,11 +138,11 @@ Example 7 (functor, or the story about function inheriting object):
 
 ```javascript
 function createFunctor(name, properties) {
-	return Function.create(name, function() {
-		if (typeof(this.invoke) === 'function') {
-			this.invoke.apply(this, arguments);
-		}
-	}, null, properties);
+  return Function.create(name, function() {
+    if (typeof(this.invoke) === 'function') {
+      this.invoke.apply(this, arguments);
+    }
+  }, null, properties);
 }
 
 function Module() {}
@@ -146,11 +150,11 @@ Module.prototype = new Function();
 Module.prototype.constructor = Module;
 
 Module.prototype.say = function(message) {
-	console.log('I want to say: ' + message);
+  console.log('I want to say: ' + message);
 };
 Module.prototype.invoke = function(a, b) {
-	this.say(a + ' + ' + b + ' = ' + (a + b));
-	return a + b;
+  this.say(a + ' + ' + b + ' = ' + (a + b));
+  return a + b;
 };
 
 var M = createFunctor('Module', new Module());
