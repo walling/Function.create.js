@@ -1,4 +1,4 @@
-(function() {
+(function(undefined) {
 
 	// This is a long list of reserved and possible reserved JavaScript identifiers. Better safe than sorry.
 	var jsReservedWords = [
@@ -129,8 +129,17 @@
 
 	if (!Function.getDisplayNameOf) {
 		Function.getDisplayNameOf = function(f) {
-			return (isFunction(f) && f.displayName || f.name) || void 0;
-		};		
+			if (!isFunction(f)) return;
+			var name = f.displayName || f.name;
+			if (name === undefined) {
+				// Support MSIE.
+				var match = ('' + f.toString()).match(/^function\s*([^\s(]+)/);
+				if (match) {
+					name = match[1];
+				}
+			}
+			return name || undefined;
+		};
 	}
 
 }());
