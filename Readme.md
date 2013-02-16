@@ -98,7 +98,7 @@ console.log('Function name:', Function.getDisplayNameOf(func));
 
 Example 6 (named classes):
 
-```
+```javascript
 function createClass(name, properties) {
 	var Class = Function.create(name, function() {
 		if (typeof(this.initialize) === 'function') {
