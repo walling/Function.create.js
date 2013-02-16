@@ -1,7 +1,7 @@
 {
 	"name" : "function.create",
-	"description" : "Polyfill for ECMAScript Function.create.",
-	"version" : "0.1.3",
+	"description" : "Function.create allows you to create named functions easily in JavaScript.",
+	"version" : "0.1.4",
 	"author" : {
 		"name" : "Bjarke Walling",
 		"email" : "bwp@bwp.dk"

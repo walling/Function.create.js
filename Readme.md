@@ -1,7 +1,14 @@
-Polyfill for Function.create
-============================
+Function.create
+===============
 
-This project provides a polyfill for the [currently discussed `Function.create`](http://wiki.ecmascript.org/doku.php?id=strawman:name_property_of_functions) in ECMAScript. This function allows you to create named functions easily.
+This allows you to create named functions easily in JavaScript. Tested browsers:
+
+ *  IE 8
+ *  Chrome
+ *  Firefox
+ *  Safari
+
+It is similar to the [sketched `Function.create`](http://wiki.ecmascript.org/doku.php?id=strawman:name_property_of_functions) in ECMAScript (two years old). The proposal was never accepted, so this function is not based on any standards, but it's still very useful.
 
 
 Install
@@ -18,7 +25,7 @@ npm install function.create
 Loading it in Node.JS:
 
 ```javascript
-require('function.create'); // the polyfill is installed globally
+require('function.create'); // now loaded globally
 ```
 
 Loading it in the browser:
