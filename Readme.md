@@ -43,7 +43,7 @@ Two functions are provided:
  *  **Function**.create(name, call[, construct[, proto]])
  *  **Function**.getDisplayNameOf(f)
 
-Currently the `proto` argument is not supported, but work is underway to support it in browsers where possible.
+The `proto` argument sets the prototype of the newly created function. This is available in all browsers except MSIE, where it is simulated by copying the whole prototype chain.
 
 Example 1 (creating unnamed function):
 
@@ -120,9 +120,42 @@ function createClass(name, properties) {
 var Person = createClass('Person', {
 	initialize: function(name) {
 		this.name = name;
+	},
+	getName: function() {
+		return this.name;
 	}
 });
 var andy = new Person('Andy');
+console.log(andy instanceof Person); // true
+console.log(andy.getName()); // "Andy"
 ```
 
-Hopefully, there is more to come!
+Example 7 (functor, or the story about function inheriting object):
+
+```javascript
+function createFunctor(name, properties) {
+	return Function.create(name, function() {
+		if (typeof(this.invoke) === 'function') {
+			this.invoke.apply(this, arguments);
+		}
+	}, null, properties);
+}
+
+function Module() {}
+Module.prototype = new Function();
+Module.prototype.constructor = Module;
+
+Module.prototype.say = function(message) {
+	console.log('I want to say: ' + message);
+};
+Module.prototype.invoke = function(a, b) {
+	this.say(a + ' + ' + b + ' = ' + (a + b));
+	return a + b;
+};
+
+var M = createFunctor('Module', new Module());
+console.log(M.name); // "Module"
+console.log(typeof(M)); // "function"
+console.log(M instanceof Module); // true, in all browsers except MSIE
+M(20, 22); // outputs "I want to say: 20 + 22 = 42"
+```
