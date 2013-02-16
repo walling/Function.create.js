@@ -23,7 +23,7 @@
 
 	if (!Function.create) {
 		Function.create = function(name, call, construct, proto) {
-			/*jshint eqnull:true,evil:true*/
+			/*jshint eqnull:true,evil:true,proto:true*/
 			var func, proxy, string;
 
 			// Convert to string keeping '0' and 'false', but null/defined becomes ''.
@@ -44,10 +44,6 @@
 				// Null means using the default Function prototype (by not setting it).
 				proto = null;
 			}
-			if (proto != null) {
-				// TODO: Implement proto argument.
-				throw new TypeError('Argument proto is not yet supported.');
-			}
 			if (proto != null && !(proto instanceof Function)) {
 				throw new TypeError('Argument proto must be instance of Function.');
 			}
@@ -65,9 +61,25 @@
 				// TODO: Include arguments in generated toString() if `call` and `construct` have the same (prefix) sequence of argument names.
 				string = 'function ' + name + '() { [proxy code] }';
 			} else {
-				proxy = call;
-				// Insert the proper name into toString() presentation.
-				string = ('' + proxy.toString()).replace(/function.*?\(/, 'function ' + name + '(');
+				if (proto) {
+					// We are setting proto, support `this` in proxy function.
+					proxy = function function_proxy() {
+						// Heuristically determine whether the function was invoked as a constructor or regular function.
+						if (this instanceof func) {
+							return call.apply(this, arguments);
+						} else {
+							return call.apply(func, arguments);
+						}
+					};
+					// Copy arguments from proxy to generated toString() presentation.
+					var call_args = ('' + call.toString()).match(/function.*?\((.*?)\)/);
+					call_args = (call_args && call_args[1]) || '';
+					string = 'function ' + name + '(' + call_args + ') { [proxy code] }';
+				} else {
+					proxy = call;
+					// Insert the proper name into toString() presentation.
+					string = ('' + proxy.toString()).replace(/function.*?\(/, 'function ' + name + '(');
+				}
 			}
 
 			// Generate named function that just calls proxy with context and all arguemnts.
@@ -90,6 +102,26 @@
 			// Remember to update the other ways to query the function name.
 			func.name = name;
 			func.displayName = name;
+
+			// Real prototype support in Node.JS and most browsers except MSIE.
+			if (proto) {
+				if (isFunction(func.__proto__)) {
+					func.__proto__ = proto;
+				} else {
+					// Support MSIE by copying the whole prototype chain.
+					var implicitKeys = ['constructor']; // TODO: Possibly more than this
+					var key;
+					for (key in proto) {
+						func[key] = proto[key];
+					}
+					for (var i = 0; i < implicitKeys.length; i++) {
+						key = implicitKeys[i];
+						if (key in proto) {
+							func[key] = proto[key];
+						}
+					}
+				}
+			}
 
 			return func;
 		};

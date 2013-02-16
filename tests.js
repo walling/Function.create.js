@@ -69,4 +69,31 @@ console.log('[9] ', p.plop2(123) === 2214);
 console.log('[10] ', plop(44, 45) === 89);
 console.log('[11] ', plop.toString());
 
+console.log('---- Test E ----');
+
+function Drux() {}
+Drux.prototype = new Function;
+Drux.prototype.constructor = Drux;
+Drux.prototype.drux = function(){ this.value = 32; };
+
+function Flux() {}
+Flux.prototype = new Drux;
+Flux.prototype.constructor = Flux;
+Flux.prototype.fluxy1 = function(){ this.drux(); };
+
+var flux = Function.create('flux', function(a){ this.fluxy1(); return a-1; }, null, new Flux);
+flux.fluxy2 = function(value){ return value/this.value };
+
+console.log('[1] ', flux instanceof Function);
+console.log('[2] ', flux instanceof Flux);
+console.log('[3] ', flux.constructor === Flux);
+console.log('[4] ', typeof(flux) === 'function');
+console.log('[5] ', Object.prototype.toString.call(flux) === '[object Function]');
+console.log('[6] ', flux.name === 'flux');
+console.log('[7] ', flux.displayName === 'flux');
+console.log('[8] ', Function.getDisplayNameOf(flux) === 'flux');
+console.log('[9] ', flux(99) === 98);
+console.log('[10] ', flux.fluxy2(64) === 2);
+console.log('[11] ', flux.toString());
+
 console.log('----------------');
