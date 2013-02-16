@@ -11,8 +11,8 @@ This allows you to create named functions easily in JavaScript. Tested browsers:
 It is similar to the [sketched `Function.create`](http://wiki.ecmascript.org/doku.php?id=strawman:name_property_of_functions) in ECMAScript (two years old). The proposal was never accepted, so this function is not based on any standards, but it's still very useful.
 
 
-Install
--------
+Getting Started
+---------------
 
 Download:
 
