@@ -1,4 +1,4 @@
-// Minify: uglifyjs Function.create.js -m -c unused=false -o Function.create.min.js
+// Minify: uglifyjs Function.create.js -m -r function_proxy -c unused=false -o Function.create.min.js
 
 (function(undefined) {
 
