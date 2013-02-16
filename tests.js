@@ -1,3 +1,6 @@
+/*globals exports:true,require:true,console:true*/
+/*jshint evil:true*/
+
 // Support testing in Node.JS and other CommonJS environments.
 if (typeof exports !== 'undefined') {
 	require('./Function.create');
@@ -72,17 +75,17 @@ console.log('[11] ', plop.toString());
 console.log('---- Test E ----');
 
 function Drux() {}
-Drux.prototype = new Function;
+Drux.prototype = new Function();
 Drux.prototype.constructor = Drux;
 Drux.prototype.drux = function(){ this.value = 32; };
 
 function Flux() {}
-Flux.prototype = new Drux;
+Flux.prototype = new Drux();
 Flux.prototype.constructor = Flux;
 Flux.prototype.fluxy1 = function(){ this.drux(); };
 
-var flux = Function.create('flux', function(a){ this.fluxy1(); return a-1; }, null, new Flux);
-flux.fluxy2 = function(value){ return value/this.value };
+var flux = Function.create('flux', function(a){ this.fluxy1(); return a-1; }, null, new Flux());
+flux.fluxy2 = function(value){ return value/this.value; };
 
 console.log('[1] ', flux instanceof Function);
 console.log('[2] ', flux instanceof Flux);
