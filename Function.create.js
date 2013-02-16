@@ -1,3 +1,5 @@
+// Minify: uglifyjs Function.create.js -m -c unused=false -o Function.create.min.js
+
 (function(undefined) {
 
 	// Valid JavaScript identifier including a long black list of reserved and possible bad identifiers. Better safe than sorry.
@@ -58,21 +60,21 @@
 						}
 					};
 					// Copy arguments from proxy to generated toString() presentation.
-					var call_args = ('' + call.toString()).match(/function.*?\((.*?)\)/);
+					var call_args = ('' + call).match(/function.*?\((.*?)\)/);
 					call_args = (call_args && call_args[1]) || '';
 					string = 'function ' + name + '(' + call_args + ') { [proxy code] }';
 				} else {
 					proxy = call;
 					// Insert the proper name into toString() presentation.
-					string = ('' + proxy.toString()).replace(/function.*?\(/, 'function ' + name + '(');
+					string = ('' + proxy).replace(/function.*?\(/, 'function ' + name + '(');
 				}
 			}
 
 			// Generate named function that just calls proxy with context and all arguemnts.
 			if (name) {
-				func = (new Function('proxy',
+				func = (new Function('p',
 					'return function ' + name + '(){' +
-						'return proxy.apply(this,arguments);' +
+						'return p.apply(this,arguments);' +
 					'};')
 				)(proxy);
 			} else {
@@ -119,7 +121,7 @@
 			var name = f.displayName || f.name;
 			if (name === undefined) {
 				// Support MSIE.
-				var match = ('' + f.toString()).match(/^function\s*([^\s(]+)/);
+				var match = ('' + f).match(/^function\s*([^\s(]+)/);
 				if (match) {
 					name = match[1];
 				}
