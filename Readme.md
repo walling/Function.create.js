@@ -96,4 +96,26 @@ var func = function fancyFunction() {};
 console.log('Function name:', Function.getDisplayNameOf(func));
 ```
 
+Example 6 (named classes):
+
+```
+function createClass(name, properties) {
+	var Class = Function.create(name, function() {
+		if (typeof(this.initialize) === 'function') {
+			this.initialize.apply(this, arguments);
+		}
+	});
+	Class.prototype = properties;
+	Class.prototype.constructor = Class;
+	return Class;
+}
+
+var Person = createClass('Person', {
+	initialize: function(name) {
+		this.name = name;
+	}
+});
+var andy = new Person('Andy');
+```
+
 Hopefully, there is more to come!
