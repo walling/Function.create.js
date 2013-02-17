@@ -1,7 +1,7 @@
 {
 	"name" : "function.create",
 	"description" : "Function.create allows you to create named functions easily in JavaScript.",
-	"version" : "0.1.4",
+	"version" : "0.1.5",
 	"author" : {
 		"name" : "Bjarke Walling",
 		"email" : "bwp@bwp.dk"
